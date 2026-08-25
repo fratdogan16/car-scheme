@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Устройство автомобиля</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --font-title: 'Merriweather', Georgia, serif;
+        --font-body: 'Montserrat', -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        background: #eeece7;
+        font-family: var(--font-body);
+        text-align: center;
+        padding: 60px 16px 80px;
+        color: #2b2b2b;
+        margin: 0;
+    }
+
+    h1 {
+        font-family: var(--font-title);
+        font-weight: 700;
+        font-size: 30px;
+        letter-spacing: 0.3px;
+        margin: 0;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        color: #8a8580;
+        margin-top: 8px;
+        letter-spacing: 0.4px;
+    }
+
+    h2.bay-title {
+        font-family: var(--font-title);
+        font-weight: 700;
+        font-size: 22px;
+        margin-top: 10px;
+    }
+
+    .info-card {
+        max-width: 560px;
+        margin: 26px auto 10px;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 22px 28px;
+        box-shadow: 0 10px 26px rgba(0,0,0,0.10);
+        border: 1px solid #e4e1da;
+        min-height: 96px;
+        transition: box-shadow 0.25s ease;
+    }
+
+    .info-card h3 {
+        font-family: var(--font-title);
+        font-weight: 700;
+        font-style: italic;
+        font-size: 20px;
+        margin: 0 0 8px;
+        color: #b91c1c;
+        transition: color 0.2s ease;
+    }
+
+    .info-card p {
+        font-family: var(--font-body);
+        font-size: 15px;
+        line-height: 1.55;
+        margin: 0;
+        color: #3f3f3f;
+    }
+
+    .car-wrap {
+        position: relative;
+        width: 460px;
+        max-width: 92vw;
+        height: 220px;
+        margin: 50px auto 40px;
+    }
+
+    .shadow {
+        position: absolute;
+        bottom: 10px;
+        left: 30px;
+        width: 400px;
+        height: 24px;
+        background: radial-gradient(ellipse, rgba(0,0,0,0.35), transparent 70%);
+        border-radius: 50%;
+    }
+
+    .arch {
+        position: absolute;
+        bottom: 30px;
+        width: 80px;
+        height: 40px;
+        background: rgba(0,0,0,0.25);
+        border-radius: 50% 50% 0 0;
+    }
+    .arch-front { left: 70px; }
+    .arch-back { right: 70px; }
+
+    .body-part {
+        position: absolute;
+        bottom: 40px;
+        left: 30px;
+        width: 400px;
+        height: 70px;
+        background: #d64545;
+        border-radius: 16px 16px 8px 8px;
+        box-shadow: 0 12px 20px rgba(0,0,0,0.25), inset 0 -10px 14px rgba(0,0,0,0.15);
+    }
+
+    .hood-line {
+        position: absolute;
+        bottom: 92px;
+        left: 45px;
+        width: 150px;
+        height: 3px;
+        background: rgba(0,0,0,0.2);
+        border-radius: 2px;
+    }
+
+    .cabin {
+        position: absolute;
+        bottom: 100px;
+        left: 110px;
+        width: 200px;
+        height: 55px;
+        background: linear-gradient(180deg, #e05a5a, #c53a3a);
+        clip-path: polygon(8% 100%, 20% 0%, 80% 0%, 96% 100%);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    }
+
+    .window {
+        position: absolute;
+        bottom: 108px;
+        left: 130px;
+        width: 160px;
+        height: 32px;
+        background: linear-gradient(160deg, #bfe4f0, #7fb4c8);
+        clip-path: polygon(10% 100%, 22% 0%, 78% 0%, 90% 100%);
+    }
+
+    .mirror {
+        position: absolute;
+        bottom: 96px;
+        left: 118px;
+        width: 14px;
+        height: 10px;
+        background: #7a2020;
+        border-radius: 3px;
+    }
+
+    .headlight {
+        position: absolute;
+        bottom: 62px;
+        left: 400px;
+        width: 16px;
+        height: 14px;
+        background: #fff6d0;
+        border-radius: 4px;
+        box-shadow: 0 0 6px 2px rgba(255,240,180,0.7);
+    }
+
+    .wheel {
+        position: absolute;
+        bottom: 4px;
+        width: 62px;
+        height: 62px;
+        background: #1c1c1c;
+        border-radius: 50%;
+        box-shadow: 0 6px 10px rgba(0,0,0,0.35);
+        transition: transform 0.3s ease;
+    }
+    .rim {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 26px; height: 26px;
+        transform: translate(-50%, -50%);
+        background: #ccc;
+        border-radius: 50%;
+        border: 3px solid #888;
+        pointer-events: none;
+    }
+    .wheel-front { left: 90px; }
+    .wheel-back { right: 90px; }
+
+    .hotspot { cursor: pointer; }
+
+    .sparks { position: absolute; inset: 0; pointer-events: none; }
+    .spark {
+        position: absolute; top: 50%; left: 50%;
+        width: 6px; height: 6px; border-radius: 50%;
+        background: #fbbf24; opacity: 0;
+    }
+    .hotspot:hover .spark { animation: sparkBurst 0.7s ease-out forwards; }
+
+    @keyframes sparkBurst {
+        0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); opacity: 0; }
+    }
+
+    .label {
+        position: absolute;
+        left: 50%; top: -34px;
+        transform: translateX(-50%) translateY(10px);
+        background: #1a1a1a; color: #fff;
+        padding: 6px 14px; border-radius: 8px;
+        font-family: var(--font-body);
+        font-size: 14px; white-space: nowrap;
+        opacity: 0; pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+        z-index: 5;
+    }
+    .hotspot:hover .label {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    @keyframes shimmer {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .body-part.hotspot:hover, .body-part.hotspot:hover ~ .cabin {
+        background: linear-gradient(120deg, #6b0f0f, #ea580c, #b91c1c, #f97316);
+        background-size: 300% 300%;
+        animation: shimmer 1.5s ease infinite, glowRed 1.5s ease infinite;
+    }
+    .body-part.hotspot:hover ~ .headlight {
+        background: #ffe27a;
+        box-shadow: 0 0 14px 5px rgba(255,210,90,0.9);
+    }
+    .wheel.hotspot:hover {
+        background: linear-gradient(120deg, #4c1d95, #a78bfa, #6d28d9, #c4b5fd);
+        background-size: 300% 300%;
+        animation: shimmer 1.5s ease infinite, glowPurple 1.5s ease infinite;
+        transform: scale(1.15);
+    }
+
+    @keyframes glowRed {
+        0%, 100% { box-shadow: 0 0 18px 4px rgba(239,68,68,0.55); }
+        50% { box-shadow: 0 0 32px 10px rgba(249,115,22,0.8); }
+    }
+    @keyframes glowPurple {
+        0%, 100% { box-shadow: 0 0 18px 4px rgba(124,58,237,0.55); }
+        50% { box-shadow: 0 0 32px 10px rgba(196,181,253,0.85); }
+    }
+
+    .bay-hint {
+        font-size: 13px;
+        color: #8a8a8a;
+        margin-bottom: 18px;
+    }
+
+    .bay {
+        position: relative;
+        width: min(820px, 92vw);
+        margin: 20px auto 40px;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+        line-height: 0;
+    }
+
+    .bay img {
+        display: block;
+        width: 100%;
+        height: auto;
+        user-select: none;
+        -webkit-user-drag: none;
+    }
+
+    .zone {
+        position: absolute;
+        border-radius: 14px;
+    }
+
+    .zone::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: var(--tint);
+        opacity: 0;
+        mix-blend-mode: screen;
+        transition: opacity 0.3s ease;
+    }
+
+    .zone:hover::before {
+        opacity: 0.5;
+        background-size: 300% 300%;
+        animation: shimmer 1.5s ease infinite;
+    }
+
+    .zone:hover {
+        animation: zoneGlow 1.5s ease infinite;
+    }
+
+    .zone-engine { --tint: linear-gradient(120deg, #6b0f0f, #ea580c, #b91c1c, #f97316); --glow: 239,68,68; }
+    .zone-intake { --tint: linear-gradient(120deg, #0c4a6e, #38bdf8, #0369a1, #7dd3fc); --glow: 56,189,248; }
+    .zone-exhaust { --tint: linear-gradient(120deg, #3f3f3f, #f97316, #525252, #fb923c); --glow: 251,146,60; }
+    .zone-ecu { --tint: linear-gradient(120deg, #052e16, #4ade80, #166534, #86efac); --glow: 74,222,128; }
+    .zone-transmission { --tint: linear-gradient(120deg, #4c1d95, #a78bfa, #6d28d9, #c4b5fd); --glow: 124,58,237; }
+
+    @keyframes zoneGlow {
+        0%, 100% { box-shadow: 0 0 0 3px rgba(var(--glow),0.6), 0 0 20px 6px rgba(var(--glow),0.45); }
+        50% { box-shadow: 0 0 0 3px rgba(var(--glow),0.9), 0 0 34px 12px rgba(var(--glow),0.75); }
+    }
+
+    footer {
+        margin-top: 50px;
+        font-size: 12px;
+        color: #a6a19a;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .zone:hover, .body-part.hotspot:hover, .wheel.hotspot:hover, .hotspot:hover .spark {
+            animation: none !important;
+        }
+    }
+</style>
+</head>
+<body>
+    <h1>Наведи на деталь машины</h1>
+    <p class="subtitle">Интерактивная схема кузова и моторного отсека</p>
+
+    <div class="info-card">
+        <h3 id="infoTitle">Добро пожаловать</h3>
+        <p id="infoText">Наведите курсор на любую часть автомобиля или моторного отсека — здесь появится короткий рассказ о том, что это и для чего нужно.</p>
+    </div>
+
+    <div class="car-wrap">
+        <div class="shadow"></div>
+        <div class="arch arch-front"></div>
+        <div class="arch arch-back"></div>
+
+        <div class="cabin"></div>
+        <div class="window"></div>
+        <div class="mirror"></div>
+        <div class="headlight"></div>
+
+        <div class="body-part hotspot"
+             data-title="Капотный отсек"
+             data-text="Капот защищает моторный отсек от осадков, грязи и посторонних предметов, а также немного снижает шум работающего двигателя. Под ним располагаются двигатель, аккумулятор и большинство рабочих жидкостей автомобиля.">
+            <div class="hood-line"></div>
+            <span class="label">Капотный отсек</span>
+            <div class="sparks">
+                <span class="spark" style="--tx:-40px; --ty:-30px;"></span>
+                <span class="spark" style="--tx:40px; --ty:-30px;"></span>
+                <span class="spark" style="--tx:-50px; --ty:10px;"></span>
+                <span class="spark" style="--tx:50px; --ty:10px;"></span>
+            </div>
+        </div>
+
+        <div class="wheel wheel-front hotspot"
+             data-title="Переднее колесо"
+             data-text="Передние колёса чаще всего отвечают за поворот автомобиля, а на переднеприводных машинах ещё и передают крутящий момент от двигателя на дорогу. От давления и состояния шин напрямую зависят управляемость и тормозной путь.">
+            <div class="rim"></div>
+            <span class="label">Переднее колесо</span>
+            <div class="sparks">
+                <span class="spark" style="--tx:-30px; --ty:-25px;"></span>
+                <span class="spark" style="--tx:30px; --ty:-25px;"></span>
+            </div>
+        </div>
+
+        <div class="wheel wheel-back hotspot"
+             data-title="Заднее колесо"
+             data-text="Задние колёса воспринимают часть веса кузова и багажа. На заднеприводных и полноприводных автомобилях именно они (или они вместе с передними) передают тягу двигателя на дорогу.">
+            <div class="rim"></div>
+            <span class="label">Заднее колесо</span>
+            <div class="sparks">
+                <span class="spark" style="--tx:-30px; --ty:-25px;"></span>
+                <span class="spark" style="--tx:30px; --ty:-25px;"></span>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="bay-title">Под капотом</h2>
+    <p class="bay-hint">Наведите курсор на элементы фотографии</p>
+
+    <div class="bay">
+        <img src="engine-bay.jpg" alt="Моторный отсек" draggable="false">
